@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol DataRequest {
+public protocol DataRequest {
     associatedtype ResponseData: Decodable
     
     var url: String { get }
@@ -18,13 +18,15 @@ protocol DataRequest {
     func decode(_ data: Data) throws -> ResponseData
 }
 
-extension DataRequest {
+public extension DataRequest {
     func decode(_ data: Data) throws -> ResponseData {
         let decoder = JSONDecoder()
         return try decoder.decode(ResponseData.self, from: data)
     }
-    
-    func getURLRequest() -> URLRequest? {
+}
+   
+extension DataRequest {
+  func getURLRequest() -> URLRequest? {
         guard var urlComponent = URLComponents(string: url) else {
             return nil
         }

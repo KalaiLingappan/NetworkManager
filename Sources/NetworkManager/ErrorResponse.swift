@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum ErrorResponse: Error {
+public enum ErrorResponse: Error {
     case noNetwork
     case decode
     case invalidURL

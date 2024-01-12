@@ -1,6 +1,6 @@
 //
-//  NetworkManager.swift
-//  Airbnb-listings
+//  DataNetworkService.swift
+//
 //
 //  Created by Kalaiprabha L on 02/01/24.
 //
@@ -8,7 +8,7 @@
 import Foundation
 
 
-protocol NetworkService {
+public protocol NetworkService {
     func fetchDataFor<Request: DataRequest>(request: Request) async throws -> Request.ResponseData?
 }
 

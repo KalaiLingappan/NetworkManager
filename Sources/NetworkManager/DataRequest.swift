@@ -1,6 +1,6 @@
 //
 //  DataRequest.swift
-//  Airbnb-listings
+// 
 //
 //  Created by Kalaiprabha L on 03/01/24.
 //
@@ -23,10 +23,8 @@ public extension DataRequest {
         let decoder = JSONDecoder()
         return try decoder.decode(ResponseData.self, from: data)
     }
-}
-   
-extension DataRequest {
-  func getURLRequest() -> URLRequest? {
+    
+    func getURLRequest() -> URLRequest? {
         guard var urlComponent = URLComponents(string: url) else {
             return nil
         }

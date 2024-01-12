@@ -1,6 +1,6 @@
 //
 //  ErrorResponse.swift
-//  Airbnb-listings
+//  
 //
 //  Created by Kalaiprabha L on 03/01/24.
 //
@@ -9,7 +9,7 @@ import Foundation
 
 public enum ErrorResponse: Error {
     case noNetwork
-    case decode
+    case invalidData
     case invalidURL
     case noResponse
     case unauthorized
@@ -20,7 +20,7 @@ public enum ErrorResponse: Error {
         switch self {
         case .noNetwork:
             return "No internet connection"
-        case .decode:
+        case .invalidData:
             return "Error while decoding the response"
         case .invalidURL:
             return "Invalid URL"

@@ -13,9 +13,9 @@ public protocol NetworkService {
 }
 
 public final class DataNetworkService: NSObject, NetworkService {
-    var urlSession: URLSession
+    private let urlSession: URLSession
     
-    public init(urlSession: URLSession = URLSession.shared) {
+    public init(urlSession: URLSession = .shared) {
         self.urlSession = urlSession
     }
     
@@ -37,19 +37,5 @@ public final class DataNetworkService: NSObject, NetworkService {
         default:
             throw ErrorResponse.unexpectedStatusCode
         }
-    }
-}
-
-extension DataNetworkService: URLSessionDelegate {
-    public func urlSession(_ session: URLSession, didReceive challenge: URLAuthenticationChallenge, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {
-        if challenge.protectionSpace.authenticationMethod == NSURLAuthenticationMethodServerTrust {
-            if let serverTrust = challenge.protectionSpace.serverTrust {
-                let credential = URLCredential(trust: serverTrust)
-                completionHandler(.useCredential, credential)
-                return
-            }
-        }
-        
-        completionHandler(.performDefaultHandling, nil)
     }
 }

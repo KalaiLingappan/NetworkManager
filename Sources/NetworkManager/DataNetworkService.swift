@@ -12,7 +12,7 @@ public protocol NetworkService {
     func fetchDataFor<Request: DataRequest>(request: Request) async throws -> Request.ResponseData?
 }
 
-public final class DataNetworkService: NetworkService {
+public final class DataNetworkService: NSObject, NetworkService {
     var urlSession: URLSession
     
     public init(urlSession: URLSession = URLSession.shared) {
@@ -37,5 +37,19 @@ public final class DataNetworkService: NetworkService {
         default:
             throw ErrorResponse.unexpectedStatusCode
         }
+    }
+}
+
+extension DataNetworkService: URLSessionDelegate {
+    public func urlSession(_ session: URLSession, didReceive challenge: URLAuthenticationChallenge, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {
+        if challenge.protectionSpace.authenticationMethod == NSURLAuthenticationMethodServerTrust {
+            if let serverTrust = challenge.protectionSpace.serverTrust {
+                let credential = URLCredential(trust: serverTrust)
+                completionHandler(.useCredential, credential)
+                return
+            }
+        }
+        
+        completionHandler(.performDefaultHandling, nil)
     }
 }

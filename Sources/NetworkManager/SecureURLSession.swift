@@ -8,7 +8,7 @@
 import Foundation
 
 public class SecureURLSession {
-    static var shared: URLSession = {
+    public static var shared: URLSession = {
         let configuration = URLSessionConfiguration.default
         let delegate = SecureSessionDelegate()
         return URLSession(configuration: configuration, delegate: delegate, delegateQueue: OperationQueue.main)

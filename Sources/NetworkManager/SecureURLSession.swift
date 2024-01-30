@@ -7,8 +7,10 @@
 
 import Foundation
 
-public class SecureURLSession: URLSession {
-    public override class var shared: URLSession {
-        URLSession(configuration: URLSessionConfiguration.default, delegate: SecureSessionDelegate(), delegateQueue: OperationQueue.main)
-    }
+public class SecureURLSession {
+    static var shared: URLSession = {
+        let configuration = URLSessionConfiguration.default
+        let delegate = SecureSessionDelegate()
+        return URLSession(configuration: configuration, delegate: delegate, delegateQueue: OperationQueue.main)
+    }()
 }

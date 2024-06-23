@@ -14,6 +14,7 @@ public protocol DataRequest {
     var method: HTTPMethod { get }
     var headers: [String : String] { get }
     var queryItems: [String : String] { get }
+    var body: Data? { get }
     
     func decode(_ data: Data) throws -> ResponseData
 }
@@ -38,6 +39,8 @@ public extension DataRequest {
         var urlRequest = URLRequest(url: url)
         urlRequest.httpMethod = method.rawValue
         urlRequest.allHTTPHeaderFields = headers
+        urlRequest.httpBody = body
+        
         return urlRequest
     }
     
